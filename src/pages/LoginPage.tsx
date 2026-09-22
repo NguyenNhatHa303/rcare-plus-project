@@ -21,11 +21,9 @@ import equalityLogo from '../assets/equality100.png';
 import hipaaLogo from '../assets/hipaa.png';
 import bgPattern from '../assets/bg-pattern.png';
 
-// Import ảnh Store Badges
 import appStoreIcon from '../assets/app-store-icon.png';
 import googlePlayIcon from '../assets/google-play-icon.png';
 
-// Import 6 icon tính năng
 import careTeamIcon from '../assets/care-team-icon.png';
 import labResultsIcon from '../assets/lab-results-icon.png';
 import virtualCareIcon from '../assets/virtual-care-icon.png';
@@ -164,7 +162,6 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [error, setError] = useState(false);
 
-  // Khởi tạo trực tiếp từ localStorage mà không cần useEffect
   const [language, setLanguage] = useState<'en' | 'vi'>(() => {
     const savedLang = localStorage.getItem('rcare_lang');
     return savedLang === 'en' || savedLang === 'vi' ? savedLang : 'vi';
@@ -226,10 +223,10 @@ export default function LoginPage() {
   return (
     <Box
       sx={{
-        width: '100vw',
+        width: '100%',
         minHeight: '100vh',
-        margin: 0,
-        padding: { xs: 2, md: 4 },
+        boxSizing: 'border-box',
+        p: { xs: 1.5, sm: 2.5, md: 4 },
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -238,32 +235,36 @@ export default function LoginPage() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        position: 'fixed',
-        top: 0,
-        left: 0,
         fontFamily: APP_FONT_FAMILY,
-        overflowY: 'auto',
       }}
     >
       <Card
         sx={{
           maxWidth: 1180,
           width: '100%',
-          borderRadius: 4,
+          borderRadius: { xs: 3, sm: 4 },
           boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
           overflow: 'hidden',
           fontFamily: APP_FONT_FAMILY,
           backgroundColor: '#fff',
           display: 'flex',
           flexDirection: 'column',
+          my: { xs: 1, sm: 2 },
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, flex: 1 }}>
-          {/* CỘT TRÁI: 6 TÍNH NĂNG */}
+        <Box
+          sx={{
+            display: 'flex',
+            // Trên điện thoại: xếp Form Login lên đầu (column-reverse), trên máy tính giữ nguyên
+            flexDirection: { xs: 'column-reverse', md: 'row' },
+            flex: 1,
+          }}
+        >
+          {/* CỘT TÍNH NĂNG */}
           <Box
             sx={{
-              flex: { xs: '1 1 100%', md: '1 1 62%' },
-              padding: { xs: 3, sm: '35px 35px 25px 40px' },
+              flex: { xs: '1 1 100%', md: '1 1 60%' },
+              padding: { xs: '24px 20px', sm: '35px 35px 25px 40px' },
               backgroundColor: '#fff',
               display: 'flex',
               flexDirection: 'column',
@@ -271,7 +272,7 @@ export default function LoginPage() {
             }}
           >
             <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', mb: 4 }}>
                 <Typography
                   variant="h4"
                   sx={{
@@ -290,20 +291,19 @@ export default function LoginPage() {
                 sx={{
                   display: 'grid',
                   gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
-                  gap: 3.5,
+                  gap: { xs: 2.5, sm: 3.5 },
                 }}
               >
                 {t.features.map((item, index) => (
                   <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
                     <Box
                       sx={{
-                        width: 46,
-                        height: 46,
-                        minWidth: 46,
+                        width: 44,
+                        height: 44,
+                        minWidth: 44,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: 'transparent',
                       }}
                     >
                       <Box
@@ -324,9 +324,9 @@ export default function LoginPage() {
                         sx={{
                           fontWeight: 700,
                           color: '#222',
-                          mb: 0.5,
+                          mb: 0.3,
                           fontFamily: APP_FONT_FAMILY,
-                          fontSize: '14.5px',
+                          fontSize: '14px',
                         }}
                       >
                         {item.title}
@@ -351,19 +351,35 @@ export default function LoginPage() {
           </Box>
 
           <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', md: 'block' } }} />
+          <Divider orientation="horizontal" flexItem sx={{ display: { xs: 'block', md: 'none' } }} />
 
-          {/* CỘT PHẢI: FORM ĐĂNG NHẬP */}
+          {/* CỘT FORM ĐĂNG NHẬP */}
           <Box
             sx={{
-              flex: { xs: '1 1 100%', md: '1 1 38%' },
-              padding: { xs: 3, sm: '30px 35px 25px 35px' },
+              flex: { xs: '1 1 100%', md: '1 1 40%' },
+              padding: { xs: '28px 20px 24px 20px', sm: '32px 35px 25px 35px' },
               display: 'flex',
               flexDirection: 'column',
               backgroundColor: '#fafafa',
             }}
           >
-            {/* Dropdown chọn ngôn ngữ */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mb: 2 }}>
+            {/* Header trên Mobile: hiện Logo và nút đổi ngôn ngữ cùng hàng */}
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+              <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 800,
+                    color: '#111',
+                    fontFamily: APP_FONT_FAMILY,
+                  }}
+                >
+                  RCare
+                  <sup style={{ color: '#d81b60', fontSize: '0.65em', fontWeight: 800 }}>+</sup>
+                </Typography>
+              </Box>
+
+              {/* Dropdown chọn ngôn ngữ */}
               <Box
                 onClick={handleOpenLangMenu}
                 sx={{
@@ -377,6 +393,7 @@ export default function LoginPage() {
                   padding: '4px 8px',
                   borderRadius: 1,
                   fontFamily: APP_FONT_FAMILY,
+                  ml: 'auto',
                   '&:hover': { backgroundColor: 'rgba(46, 125, 50, 0.08)' },
                 }}
               >
@@ -421,11 +438,11 @@ export default function LoginPage() {
               </Menu>
             </Box>
 
-            <Typography variant="subtitle1" sx={{ mb: 0.5, fontWeight: 'bold', fontFamily: APP_FONT_FAMILY, textAlign: 'left' }}>
+            <Typography variant="subtitle1" sx={{ mb: 0.5, fontWeight: 700, fontFamily: APP_FONT_FAMILY, textAlign: 'left', fontSize: { xs: '15px', sm: '16px' } }}>
               {t.title}
             </Typography>
 
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontFamily: APP_FONT_FAMILY, textAlign: 'left' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontFamily: APP_FONT_FAMILY, textAlign: 'left', fontSize: '13.5px' }}>
               <span style={{ color: '#d81b60', fontWeight: 'bold' }}>{t.loginHighlight}</span>
               {t.loginSubtitle}
             </Typography>
@@ -439,7 +456,7 @@ export default function LoginPage() {
                 handleNextClick();
               }}
             >
-              <Typography variant="body2" sx={{ mb: 0.8, color: '#333', fontWeight: 600, fontFamily: APP_FONT_FAMILY }}>
+              <Typography variant="body2" sx={{ mb: 0.8, color: '#333', fontWeight: 600, fontFamily: APP_FONT_FAMILY, fontSize: '13.5px' }}>
                 {t.usernameLabel}
               </Typography>
               <TextField
@@ -455,10 +472,10 @@ export default function LoginPage() {
                 error={error}
                 helperText={error ? t.errorEmpty : ''}
                 sx={{
-                  mb: 1,
+                  mb: 1.2,
                   backgroundColor: '#fff',
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 1.5,
+                    borderRadius: 2,
                     fontFamily: APP_FONT_FAMILY,
                     '&.Mui-focused fieldset': {
                       borderColor: '#d81b60',
@@ -495,7 +512,7 @@ export default function LoginPage() {
                   backgroundColor: '#d81b60',
                   color: 'white',
                   borderRadius: 50,
-                  padding: '10px 0',
+                  py: 1.2,
                   textTransform: 'none',
                   fontSize: '15px',
                   fontWeight: 'bold',
@@ -510,7 +527,7 @@ export default function LoginPage() {
             </Box>
 
             {/* 2 nút trợ giúp: Need help? & Sign up */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 6, my: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: { xs: 4, sm: 6 }, my: 2 }}>
               <Box
                 onClick={() => setOpenHelpModal(true)}
                 sx={{
@@ -522,7 +539,7 @@ export default function LoginPage() {
                   '&:hover svg, &:hover span': { color: '#d81b60' },
                 }}
               >
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="#444">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#444">
                   <path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
                 </svg>
                 <Typography component="span" variant="caption" sx={{ fontWeight: 600, color: '#444', fontFamily: APP_FONT_FAMILY, fontSize: '13px' }}>
@@ -544,7 +561,7 @@ export default function LoginPage() {
                   '&:hover svg, &:hover span': { color: '#d81b60' },
                 }}
               >
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="#444">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#444">
                   <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 8c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm-6 4c.22-.72 3.31-2 6-2 2.7 0 5.8 1.29 6 2H9zm-3-7V7H4v2H2v2h2v2h2v-2h2V9H6z" />
                 </svg>
                 <Typography component="span" variant="caption" sx={{ fontWeight: 600, color: '#444', fontFamily: APP_FONT_FAMILY, fontSize: '13px' }}>
@@ -559,9 +576,9 @@ export default function LoginPage() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: 3,
+                gap: 2.5,
                 mt: 'auto',
-                pt: 2,
+                pt: 1.5,
               }}
             >
               <Box
@@ -569,7 +586,7 @@ export default function LoginPage() {
                 src={equalityLogo}
                 alt="Equality 100"
                 sx={{
-                  width: { xs: 110, sm: 140 },
+                  width: { xs: 110, sm: 130 },
                   maxWidth: '48%',
                   height: 'auto',
                   objectFit: 'contain',
@@ -580,7 +597,7 @@ export default function LoginPage() {
                 src={hipaaLogo}
                 alt="HIPAA Compliant"
                 sx={{
-                  width: { xs: 100, sm: 130 },
+                  width: { xs: 100, sm: 120 },
                   maxWidth: '45%',
                   height: 'auto',
                   objectFit: 'contain',
@@ -590,46 +607,25 @@ export default function LoginPage() {
           </Box>
         </Box>
 
-        {/* FOOTER TĨNH */}
+        {/* FOOTER */}
         <Box
           sx={{
             backgroundColor: '#f8f9fa',
             borderTop: '1px solid #eaeaea',
-            padding: { xs: 2, sm: '14px 40px' },
+            padding: { xs: '14px 16px', sm: '14px 40px' },
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: 2,
+            gap: 1.5,
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Box
-              component="a"
-              href="#"
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                textDecoration: 'none',
-                transition: 'transform 0.15s, opacity 0.2s',
-                '&:hover': { opacity: 0.85, transform: 'scale(1.02)' },
-              }}
-            >
-              <Box component="img" src={appStoreIcon} alt="App Store" sx={{ height: 38, width: 'auto', borderRadius: 1 }} />
+            <Box component="a" href="#" sx={{ display: 'inline-flex', textDecoration: 'none' }}>
+              <Box component="img" src={appStoreIcon} alt="App Store" sx={{ height: 34, width: 'auto', borderRadius: 1 }} />
             </Box>
-
-            <Box
-              component="a"
-              href="#"
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                textDecoration: 'none',
-                transition: 'transform 0.15s, opacity 0.2s',
-                '&:hover': { opacity: 0.85, transform: 'scale(1.02)' },
-              }}
-            >
-              <Box component="img" src={googlePlayIcon} alt="Google Play" sx={{ height: 38, width: 'auto', borderRadius: 1 }} />
+            <Box component="a" href="#" sx={{ display: 'inline-flex', textDecoration: 'none' }}>
+              <Box component="img" src={googlePlayIcon} alt="Google Play" sx={{ height: 34, width: 'auto', borderRadius: 1 }} />
             </Box>
           </Box>
 
@@ -637,7 +633,7 @@ export default function LoginPage() {
             variant="caption"
             sx={{
               color: '#888',
-              fontSize: '12px',
+              fontSize: '11.5px',
               fontWeight: 500,
               fontFamily: APP_FONT_FAMILY,
               textAlign: 'center',

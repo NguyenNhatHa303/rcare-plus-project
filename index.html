@@ -4,20 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
-    <!-- Viewport tối ưu cho Mobile & iOS: hỗ trợ tai thỏ, chặn zoom vỡ layout khi gõ form -->
+    <!-- Viewport tối ưu cho Mobile & iOS: hỗ trợ tai thỏ, chặn auto-zoom gây vỡ bố cục khi nhập liệu -->
     <meta 
       name="viewport" 
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" 
     />
     
-    <!-- Màu thanh trạng thái trên trình duyệt di động -->
+    <!-- Tối ưu hiển thị thanh trạng thái trình duyệt -->
     <meta name="theme-color" content="#111111" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <title>RCare Plus</title>
 
-    <!-- Nạp sẵn Google Font Inter -->
+    <!-- Nạp sẵn font Inter chuẩn -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link 
@@ -30,14 +30,16 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent; /* Tắt vệt xám khi bấm chạm trên mobile */
+        -webkit-tap-highlight-color: transparent;
       }
 
+      /* Mở khóa cuộn dọc trơn tru, không khóa cứng chiều cao */
       html, body {
         width: 100%;
         min-height: 100%;
-        height: 100%;
         overflow-x: hidden;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         background-color: #fafafa;
         color: #111111;
@@ -47,13 +49,21 @@
 
       #root {
         width: 100%;
-        min-height: 100%;
-        height: 100%;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      /* Tùy chỉnh thanh cuộn mảnh và mượt */
+      /* Quy tắc bảo vệ cuộn trên màn hình cảm ứng điện thoại và máy tính bảng */
+      @media (max-width: 900px) {
+        html, body, #root {
+          height: auto !important;
+          overflow-y: auto !important;
+          position: static !important;
+        }
+      }
+
+      /* Tùy chỉnh thanh cuộn mảnh tinh gọn */
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
