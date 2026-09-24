@@ -355,12 +355,9 @@ export default function ProfilePage() {
     if (!supportMessage.trim()) return;
     setOpenSupportModal(false);
     setSupportMessage('');
-    triggerToast(isVi ? 'Tin nhắn hỗ trợ đã được gửi tới Ricky QCare+.' : 'Your message has been sent to Ricky QCare+.');
+    triggerToast(isVi ? 'Tin nhắn hỗ trợ đã được gửi tới Ricky RCare+.' : 'Your message has been sent to Ricky RCare+.');
   };
 
-  // --- Allergy modal state (previously missing: this was the cause of the
-  // "Cannot find name" build errors — the JSX referenced these but they
-  // were never declared) ---
   const [allergyList, setAllergyList] = useState<VitalRecord[]>([]);
   const [openAllergyModal, setOpenAllergyModal] = useState(false);
   const [allergyError, setAllergyError] = useState(false);
@@ -579,7 +576,7 @@ export default function ProfilePage() {
           id: 'contact-support',
           titleEn: 'Contact Support',
           titleVi: 'Liên hệ Hỗ trợ',
-          subEn: 'Chat with Ricky QCare+',
+          subEn: 'Chat with Ricky RCare+',
           subVi: 'Nhắn tin chăm sóc trực tiếp',
           icon: (
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
@@ -601,7 +598,7 @@ export default function ProfilePage() {
 
   return (
     <Box sx={{ width: '100%', height: '100%', position: 'relative', pt: 0, display: 'flex', flexDirection: 'column' }}>
-      {/* HEADER BAR */}
+      {/* HEADER BAR: RCare+ BRANDING (Đã chuyển từ Qcare sang RCare) */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, px: 0.5 }}>
         <Box
           onClick={() => navigate('/dashboard')}
@@ -616,7 +613,7 @@ export default function ProfilePage() {
           }}
         >
           <Typography sx={{ fontWeight: 900, fontSize: '22px', color: '#111', fontFamily: APP_FONT_FAMILY, letterSpacing: '-0.5px' }}>
-            Qcare<span style={{ color: '#d81b60', fontSize: '20px', fontWeight: 800 }}>⁺</span>
+            RCare<span style={{ color: '#d81b60', fontSize: '20px', fontWeight: 800 }}>⁺</span>
           </Typography>
         </Box>
 
@@ -1283,9 +1280,9 @@ export default function ProfilePage() {
         <DialogTitle sx={{ textAlign: 'center', fontWeight: 800, fontSize: '18px', color: '#111', p: 0, mb: 2 }}>{isVi ? 'Nhắn tin cho Chăm sóc Khách hàng' : 'Message Customer Support'}</DialogTitle>
         <DialogContent sx={{ p: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Avatar src={rickyAvatarImg} alt="Ricky QCare+" sx={{ width: 44, height: 44, borderRadius: '12px' }}>RQ</Avatar>
+            <Avatar src={rickyAvatarImg} alt="Ricky RCare+" sx={{ width: 44, height: 44, borderRadius: '12px' }}>RR</Avatar>
             <Box>
-              <Typography sx={{ fontSize: '14px', fontWeight: 700, color: '#111' }}>Ricky QCare+</Typography>
+              <Typography sx={{ fontSize: '14px', fontWeight: 700, color: '#111' }}>Ricky RCare+</Typography>
               <Typography variant="caption" sx={{ color: '#777', fontSize: '12px' }}>He/Him</Typography>
             </Box>
           </Box>
