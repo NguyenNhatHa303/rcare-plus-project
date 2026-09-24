@@ -179,7 +179,9 @@ export default function DashboardPage() {
               </svg>
             </IconButton>
 
+            {/* Avatar góc phải: Đã gắn sự kiện chuyển thẳng tới /profile */}
             <Avatar
+              onClick={() => navigate('/profile')}
               sx={{
                 bgcolor: '#6d6875',
                 color: '#fff',
@@ -187,6 +189,16 @@ export default function DashboardPage() {
                 height: 40,
                 fontSize: '14px',
                 fontWeight: 700,
+                cursor: 'pointer',
+                userSelect: 'none',
+                transition: 'transform 0.15s ease, opacity 0.15s ease',
+                '&:hover': {
+                  opacity: 0.9,
+                  transform: 'scale(1.06)',
+                },
+                '&:active': {
+                  transform: 'scale(0.96)',
+                },
               }}
             >
               {initials}
