@@ -22,7 +22,10 @@ export default function App() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/verify" element={<VerificationPage />} />
+      
+      {/* Khai báo cả 2 đường dẫn để không bao giờ bị lệch route */}
       <Route path="/confirm-birthdate" element={<BirthdateConfirmPage />} />
+      <Route path="/birthdate-confirm" element={<BirthdateConfirmPage />} />
 
       <Route element={<AppLayout />}>
         <Route path="/dashboard" element={<DashboardPage />} />
